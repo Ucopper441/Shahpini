@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perniagaan Shahpini – Construction Contractor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --purple: #5C3D8F;
+    --purple-light: #7B5BB5;
+    --purple-pale: #EDE8F5;
+    --green: #2E8B57;
+    --green-light: #3DAA6C;
+    --green-pale: #E4F3EB;
+    --gold: #C9A84C;
+    --white: #FFFFFF;
+    --off-white: #F8F7FC;
+    --grey-light: #F2F0F8;
+    --grey: #9B96A8;
+    --dark: #1A1228;
+    --text: #2D2640;
+    --text-light: #6B6578;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(92,61,143,0.1);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(92,61,143,0.12); }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--purple) 40%, var(--green) 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--purple);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .nav-logo-text span { color: var(--green); font-size: 0.65rem; display: block; font-family: 'DM Sans', sans-serif; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    color: var(--text-light);
+    transition: color 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-links a:hover { color: var(--purple); }
+  .nav-cta {
+    background: var(--purple); color: white !important;
+    padding: 8px 20px; border-radius: 6px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green) !important; color: white !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--purple); border-radius: 2px; transition: all 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #F8F7FC 0%, #EDE8F5 50%, #E4F3EB 100%);
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-shapes {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .shape {
+    position: absolute; border-radius: 50%; opacity: 0.12;
+  }
+  .shape-1 { width: 600px; height: 600px; background: var(--purple); top: -200px; right: -150px; }
+  .shape-2 { width: 400px; height: 400px; background: var(--green); bottom: -100px; right: 20%; }
+  .shape-3 { width: 200px; height: 200px; background: var(--purple-light); bottom: 80px; left: 5%; }
+
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; border: 1px solid rgba(92,61,143,0.2);
+    border-radius: 50px; padding: 6px 16px 6px 8px;
+    font-size: 0.78rem; font-weight: 500; color: var(--purple);
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--green));
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title .highlight {
+    background: linear-gradient(135deg, var(--purple), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--text-light); line-height: 1.7;
+    max-width: 480px; margin-bottom: 36px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--purple), var(--purple-light));
+    color: white; padding: 14px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(92,61,143,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(92,61,143,0.45); }
+  .btn-secondary {
+    background: white; color: var(--purple); padding: 14px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    border: 1.5px solid rgba(92,61,143,0.25);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--purple);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--green); }
+  .stat-label { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; letter-spacing: 0.5px; }
+
+  .hero-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-card {
+    background: white; border-radius: 16px;
+    padding: 24px; box-shadow: 0 4px 24px rgba(92,61,143,0.08);
+    border: 1px solid rgba(92,61,143,0.06);
+  }
+  .hero-card:first-child { grid-column: 1/-1; display: flex; align-items: center; gap: 16px; }
+  .hero-card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-purple { background: var(--purple-pale); }
+  .icon-green { background: var(--green-pale); }
+  .hero-card-icon svg { width: 24px; height: 24px; }
+  .hero-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .hero-card p { font-size: 0.78rem; color: var(--text-light); line-height: 1.5; }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 90px 5%; }
+  .section-center { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--green); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700; color: var(--dark); line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-title .accent { color: var(--purple); }
+  .section-desc { color: var(--text-light); line-height: 1.7; font-size: 0.95rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .about-image-stack { position: relative; height: 420px; }
+  .about-img-main {
+    position: absolute; width: 75%; height: 320px; border-radius: 16px; overflow: hidden;
+    background: linear-gradient(135deg, var(--purple-pale), var(--green-pale));
+    bottom: 0; left: 0;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(92,61,143,0.15);
+  }
+  .about-img-accent {
+    position: absolute; width: 55%; height: 200px; border-radius: 16px; overflow: hidden;
+    background: linear-gradient(135deg, var(--purple), var(--green));
+    top: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 40px rgba(46,139,87,0.25);
+  }
+  .about-img-main svg, .about-img-accent svg { opacity: 0.3; }
+  .about-badge-float {
+    position: absolute; bottom: 30px; right: -10px;
+    background: white; border-radius: 12px; padding: 14px 18px;
+    box-shadow: 0 8px 30px rgba(92,61,143,0.18);
+    border: 1px solid rgba(92,61,143,0.1);
+    z-index: 2;
+  }
+  .about-badge-float .num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--purple); }
+  .about-badge-float .lbl { font-size: 0.7rem; color: var(--text-light); font-weight: 500; }
+  .about-content h3 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--dark); margin-bottom: 16px; font-weight: 700; }
+  .about-content p { color: var(--text-light); line-height: 1.75; margin-bottom: 20px; font-size: 0.95rem; }
+  .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .feature-chip {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--grey-light); border-radius: 10px; padding: 12px 14px;
+  }
+  .feature-chip-dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--green)); flex-shrink: 0; }
+  .feature-chip span { font-size: 0.83rem; font-weight: 500; color: var(--text); }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--off-white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .project-card {
+    background: white; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 2px 16px rgba(92,61,143,0.06);
+    border: 1px solid rgba(92,61,143,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(92,61,143,0.14); }
+  .project-thumb {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .project-thumb svg { width: 64px; height: 64px; opacity: 0.4; }
+  .project-thumb-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3) 100%);
+  }
+  .project-type-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(255,255,255,0.92); border-radius: 50px;
+    padding: 4px 12px; font-size: 0.7rem; font-weight: 600;
+    color: var(--purple);
+  }
+  .project-body { padding: 20px; }
+  .project-body h4 { font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 8px; }
+  .project-body p { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 14px; }
+  .project-meta { display: flex; justify-content: space-between; align-items: center; }
+  .project-meta .year { font-size: 0.75rem; font-weight: 600; color: var(--grey); }
+  .project-link { font-size: 0.78rem; font-weight: 600; color: var(--green); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+  .project-link:hover { color: var(--purple); }
+
+  /* ── TEAM ── */
+  #team { background: var(--white); }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .team-card {
+    background: white; border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(92,61,143,0.08);
+    box-shadow: 0 2px 16px rgba(92,61,143,0.06);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .team-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(92,61,143,0.12); }
+  .team-avatar {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative;
+  }
+  .team-avatar-initials {
+    width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: white;
+  }
+  .team-info { padding: 18px 16px; }
+  .team-info h4 { font-weight: 700; font-size: 0.95rem; color: var(--dark); margin-bottom: 4px; }
+  .team-info .role { font-size: 0.78rem; color: var(--text-light); margin-bottom: 10px; }
+  .team-social { display: flex; justify-content: center; gap: 8px; }
+  .social-btn {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--grey-light);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .social-btn:hover { background: var(--purple-pale); }
+  .social-btn svg { width: 14px; height: 14px; fill: var(--grey); }
+  .social-btn:hover svg { fill: var(--purple); }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--off-white); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+  .testi-card {
+    background: white; border-radius: 16px; padding: 28px;
+    border: 1px solid rgba(92,61,143,0.07);
+    box-shadow: 0 2px 16px rgba(92,61,143,0.05);
+    position: relative; transition: box-shadow 0.3s;
+  }
+  .testi-card:hover { box-shadow: 0 12px 40px rgba(92,61,143,0.1); }
+  .testi-quote {
+    font-size: 3rem; font-family: 'Playfair Display', serif;
+    color: var(--purple-pale); line-height: 1; margin-bottom: 16px;
+    color: var(--purple); opacity: 0.2;
+  }
+  .testi-text { font-size: 0.9rem; color: var(--text-light); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+  .testi-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+  .star { color: var(--gold); font-size: 0.9rem; }
+  .testi-author { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--grey-light); padding-top: 16px; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 0.95rem; color: white;
+  }
+  .testi-name { font-weight: 600; font-size: 0.88rem; color: var(--dark); }
+  .testi-company { font-size: 0.75rem; color: var(--text-light); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-wrapper { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+  .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--dark); margin-bottom: 16px; }
+  .contact-info p { color: var(--text-light); line-height: 1.75; margin-bottom: 32px; font-size: 0.95rem; }
+  .contact-items { display: flex; flex-direction: column; gap: 18px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 14px; }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ci-purple { background: var(--purple-pale); }
+  .ci-green { background: var(--green-pale); }
+  .contact-icon svg { width: 20px; height: 20px; }
+  .contact-item-text strong { display: block; font-size: 0.85rem; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+  .contact-item-text span { font-size: 0.83rem; color: var(--text-light); }
+
+  .contact-form { background: var(--off-white); border-radius: 20px; padding: 36px; border: 1px solid rgba(92,61,143,0.08); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 7px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 1.5px solid rgba(92,61,143,0.15);
+    background: white; font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(92,61,143,0.08);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .btn-submit {
+    width: 100%; padding: 14px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--purple), var(--green));
+    color: white; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 600; border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 50px 5% 30px;
+    color: rgba(255,255,255,0.55);
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
+  .footer-brand .nav-logo-text { color: white; }
+  .footer-brand .nav-logo-text span { color: var(--green-light); }
+  .footer-tagline { font-size: 0.83rem; margin-top: 12px; max-width: 220px; line-height: 1.6; }
+  .footer-links h5 { color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 14px; letter-spacing: 0.5px; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.83rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom p { font-size: 0.78rem; }
+  .footer-bottom .footer-accent { color: var(--green-light); font-weight: 500; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 1200px; margin: 0 auto;
+    height: 1px; background: linear-gradient(90deg, transparent, rgba(92,61,143,0.15), transparent);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: fixed; top: 70px; left: 0; right: 0;
+      background: white; padding: 24px 5%; gap: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-image-stack { height: 260px; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 20px; }
+    .about-features { grid-template-columns: 1fr; }
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-prog {
+    position: fixed; top: 70px; left: 0; height: 3px; z-index: 99;
+    background: linear-gradient(90deg, var(--purple), var(--green));
+    width: 0%; transition: width 0.1s;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22" style="fill:none;stroke:white;stroke-width:1.5"/></svg>
+    </div>
+    <div class="nav-logo-text">Perniagaan Shahpini <span>Construction Contractor</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge"><div class="hero-badge-dot"></div> Trusted Construction Contractor</div>
+      <h1 class="hero-title">Building <span class="highlight">Excellence</span>, Delivering Trust</h1>
+      <p class="hero-desc">Perniagaan Shahpini delivers high-quality construction contract services — from civil works to building projects — with precision, professionalism, and on-time delivery.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Our Projects</a>
+        <a href="#contact" class="btn-secondary">Get a Quote</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">15<span>+</span></div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-item"><div class="stat-num">80<span>+</span></div><div class="stat-label">Projects Completed</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-icon icon-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5C3D8F" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div>
+          <h4>Residential & Commercial</h4>
+          <p>Complete building construction and renovation services for all project types.</p>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h4>Civil Works</h4>
+        <p>Roads, drainage & infrastructure</p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon icon-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5C3D8F" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>Quality Assured</h4>
+        <p>CIDB registered & certified<br>PKK, SPKK, STD</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-stack reveal">
+      <div class="about-img-main">
+        <img src = img/house.jpg alt="Construction Image" style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+      <div class="about-img-accent">
+        <svg viewBox="0 0 80 80" fill="none" stroke="#5C3D8F" stroke-width="1.5" width="80" height="80"><rect x="10" y="30" width="60" height="40" rx="2"/><path d="M10 30L40 8l30 22"/><rect x="30" y="50" width="20" height="20"/></svg>
+      </div>
+      <div class="about-img-accent">
+        <img src="img/houseplan.jpg" alt="Meeting Room">
+        <svg viewBox="0 0 60 60" fill="none" stroke="white" stroke-width="1.5" width="80" height="60"><path d="M5 55L25 10l10 20 10-10 10 35"/></svg>
+      </div>
+      <div class="about-badge-float">
+        <div class="num">CIDB</div>
+        <div class="lbl">Registered Contractor</div>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <div class="section-tag">About Us</div>
+      <h3>Your Reliable Partner in Construction</h3>
+      <p>Perniagaan Shahpini is a certified construction contractor based in Malaysia, specialising in delivering high-quality contract works across residential, commercial, and civil engineering sectors.</p>
+      <p>With over 15 years in the industry, we bring unmatched expertise, a dedicated workforce, and a commitment to completing every project on schedule and within budget — without compromising quality.</p>
+      <div class="about-features">
+        <div class="feature-chip"><div class="feature-chip-dot"></div><span>CIDB Registered</span></div>
+        <div class="feature-chip"><div class="feature-chip-dot"></div><span>Licensed Contractor</span></div>
+        <div class="feature-chip"><div class="feature-chip-dot"></div><span>On-Time Delivery</span></div>
+        <div class="feature-chip"><div class="feature-chip-dot"></div><span>Quality Materials</span></div>
+        <div class="feature-chip"><div class="feature-chip-dot"></div><span>Civil Works</span></div>
+        <div class="feature-chip"><div class="feature-chip-dot"></div><span>Building Works</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-center reveal">
+    <div class="section-tag">Our Work</div>
+    <h2 class="section-title">Previous <span class="accent">Projects</span></h2>
+    <p class="section-desc">A selection of completed contract works that showcase our capability, craftsmanship, and commitment to excellence.</p>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #EDE8F5, #C8B8E8);">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#5C3D8F" stroke-width="1.5"><rect x="8" y="24" width="48" height="32" rx="2"/><path d="M8 24L32 6l24 18"/><rect x="24" y="40" width="16" height="16"/></svg>
+        <div class="project-thumb-overlay"></div>
+        <span class="project-type-badge">Residential</span>
+      </div>
+      <div class="project-body">
+        <h4>Terrace House Construction – Selangor</h4>
+        <p>Full construction of a 2-storey terrace house development comprising 24 units with modern finishing and landscaping.</p>
+        <div class="project-meta">
+          <span class="year">2023</span>
+          <a href="#contact" class="project-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #E4F3EB, #B8DFC8);">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#2E8B57" stroke-width="1.5"><rect x="4" y="20" width="56" height="36" rx="2"/><rect x="16" y="4" width="32" height="16" rx="1"/><line x1="32" y1="4" x2="32" y2="20"/></svg>
+        <div class="project-thumb-overlay"></div>
+        <span class="project-type-badge">Commercial</span>
+      </div>
+      <div class="project-body">
+        <h4>Shop-Office Renovation – Kuala Lumpur</h4>
+        <p>Renovation and fit-out of a 4-storey commercial shop-office including structural works, M&E, and interior finishing.</p>
+        <div class="project-meta">
+          <span class="year">2023</span>
+          <a href="#contact" class="project-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #F5EDE8, #E8C8B8);">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#8B4513" stroke-width="1.5"><path d="M4 56 L4 20 L32 8 L60 20 L60 56"/><rect x="20" y="36" width="24" height="20"/><line x1="4" y1="56" x2="60" y2="56"/></svg>
+        <div class="project-thumb-overlay"></div>
+        <span class="project-type-badge">Government</span>
+      </div>
+      <div class="project-body">
+        <h4>School Block Extension – Negeri Sembilan</h4>
+        <p>Construction of a new 3-storey classroom block for a government secondary school under Kementerian Pendidikan.</p>
+        <div class="project-meta">
+          <span class="year">2022</span>
+          <a href="#contact" class="project-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #E8EDF5, #B8C8E8);">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#3D5C8F" stroke-width="1.5"><path d="M8 56 Q32 20 56 56"/><path d="M16 56 L16 40"/><path d="M48 56 L48 40"/><path d="M32 56 L32 28"/></svg>
+        <div class="project-thumb-overlay"></div>
+        <span class="project-type-badge">Civil Works</span>
+      </div>
+      <div class="project-body">
+        <h4>Road & Drainage Works – Pahang</h4>
+        <p>Infrastructure works including road widening, box culvert installation, and stormwater drainage for a township development.</p>
+        <div class="project-meta">
+          <span class="year">2022</span>
+          <a href="#contact" class="project-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #EDF5E8, #C8E8B8);">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#2E8B57" stroke-width="1.5"><rect x="6" y="8" width="52" height="48" rx="2"/><line x1="6" y1="24" x2="58" y2="24"/><line x1="32" y1="8" x2="32" y2="56"/></svg>
+        <div class="project-thumb-overlay"></div>
+        <span class="project-type-badge">Industrial</span>
+      </div>
+      <div class="project-body">
+        <h4>Warehouse Construction – Johor</h4>
+        <p>Design and build of a 15,000 sq ft industrial warehouse with loading bays, office space, and M&E installation.</p>
+        <div class="project-meta">
+          <span class="year">2021</span>
+          <a href="#contact" class="project-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #F0EDF5, #D8C8F0);">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#5C3D8F" stroke-width="1.5"><circle cx="32" cy="28" r="16"/><path d="M32 44 L32 56"/><path d="M20 56 L44 56"/></svg>
+        <div class="project-thumb-overlay"></div>
+        <span class="project-type-badge">Renovation</span>
+      </div>
+      <div class="project-body">
+        <h4>Hospital Ward Refurbishment – Perak</h4>
+        <p>Refurbishment of ward facilities for a district hospital including false ceiling, flooring, electrical, and plumbing works.</p>
+        <div class="project-meta">
+          <span class="year">2021</span>
+          <a href="#contact" class="project-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-center reveal">
+    <div class="section-tag">Our People</div>
+    <h2 class="section-title">Meet the <span class="accent">Team</span></h2>
+    <p class="section-desc">Our experienced and dedicated team is the backbone of every successful project we deliver.</p>
+  </div>
+  <div class="team-grid">
+
+    <div class="team-card reveal">
+      <div class="team-avatar" style="background: linear-gradient(135deg, var(--purple-pale), var(--green-pale));">
+        <div class="team-avatar-initials" style="background: linear-gradient(135deg, var(--purple), var(--green));">SH</div>
+      </div>
+      <div class="team-info">
+        <h4>Dato' Shahilan Zuki</h4>
+        <div class="role">Founder & Managing Director</div>
+        <div class="team-social">
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card reveal">
+      <div class="team-avatar" style="background: linear-gradient(135deg, var(--green-pale), var(--purple-pale));">
+        <div class="team-avatar-initials" style="background: linear-gradient(135deg, var(--green), var(--purple));">AM</div>
+      </div>
+      <div class="team-info">
+        <h4>Afifi</h4>
+        <div class="role">Project Manager</div>
+        <div class="team-social">
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="team-card reveal">
+      <div class="team-avatar" style="background: linear-gradient(135deg, var(--green-pale), #e8f5ee);">
+        <div class="team-avatar-initials" style="background: linear-gradient(135deg, #3DAA6C, #2E8B57);">RS</div>
+      </div>
+      <div class="team-info">
+        <h4>Nurul Izzatie</h4>
+        <div class="role">QS & Contract Executive</div>
+        <div class="team-social">
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div class="social-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-center reveal">
+    <div class="section-tag">Client Feedback</div>
+    <h2 class="section-title">What Our <span class="accent">Clients Say</span></h2>
+    <p class="section-desc">We take pride in the relationships we build with our clients, and let our work speak for itself.</p>
+  </div>
+  <div class="testi-grid">
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p class="testi-text">review</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, var(--purple), var(--green));">ZA</div>
+        <div>
+          <div class="testi-name">name</div>
+          <div class="testi-company">who?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p class="testi-text">text</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, var(--green), #1A6B40);">HJ</div>
+        <div>
+          <div class="testi-name">name</div>
+          <div class="testi-company">who?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p class="testi-text">review</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background: linear-gradient(135deg, #7B5BB5, var(--purple));">FA</div>
+        <div>
+          <div class="testi-name">name</div>
+          <div class="testi-company">who?</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-center reveal">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Let's Build <span class="accent">Together</span></h2>
+    <p class="section-desc">Have a project in mind? Send us your details and we'll get back to you with a consultation or quotation.</p>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <h3>Ready to Start Your Project?</h3>
+      <p>Whether it's a new build, renovation, or civil works — we're here to discuss your needs and provide the best solution at a competitive price.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon ci-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5C3D8F" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Office Address</strong>
+            <span>No. 40A-2, Jalan 18/34, Taman Sri Serdang,<br>43300 Seri Kembangan, Selangor</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon ci-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.82 14.9a19.79 19.79 0 01-3.07-8.67A2 2 0 013.93 4h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 11.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Phone / WhatsApp</strong>
+            <span>+60 19-2651671</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon ci-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5C3D8F" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            <span>perniagaanshahpini@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon ci-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <strong>Business Hours</strong>
+            <span>Monday – Friday: 8:00 AM – 5:30 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your full name" /></div>
+        <div class="form-group"><label>Phone Number *</label><input type="tel" placeholder="+60 12-XXX XXXX" /></div>
+      </div>
+      <div class="form-group"><label>Email Address *</label><input type="email" placeholder="your@email.com" /></div>
+      <div class="form-group">
+        <label>Project Type *</label>
+        <select>
+          <option value="">Select project type...</option>
+          <option>Residential Construction</option>
+          <option>Commercial Building</option>
+          <option>Renovation Works</option>
+          <option>Civil & Infrastructure</option>
+          <option>Government Contract</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Project Location</label><input type="text" placeholder="State / City" /></div>
+      <div class="form-group"><label>Tell Us About Your Project *</label><textarea placeholder="Briefly describe your project requirements, estimated size, timeline, and budget (if any)..."></textarea></div>
+      <button class="btn-submit" onclick="handleSubmit(this)">Send Enquiry →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="nav-logo-text">Perniagaan Shahpini<span>Construction Contractor</span></div>
+        </a>
+        <p class="footer-tagline">Building excellence across Malaysia with quality, integrity, and professionalism.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#projects">Our Projects</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#contact">Residential Construction</a></li>
+          <li><a href="#contact">Commercial Building</a></li>
+          <li><a href="#contact">Civil & Infrastructure</a></li>
+          <li><a href="#contact">Renovation Works</a></li>
+          <li><a href="#contact">Government Contracts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 <span class="footer-accent">Perniagaan Shahpini</span>. All rights reserved.</p>
+      <p>CIDB Registered · SSM Registered · Licensed Contractor</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll progress
+  const prog = document.getElementById('scrollProg');
+  window.addEventListener('scroll', () => {
+    const max = document.body.scrollHeight - window.innerHeight;
+    prog.style.width = (window.scrollY / max * 100) + '%';
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav toggle mobile
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  }));
+
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = '✓ Enquiry Sent! We\'ll be in touch soon.';
+    btn.style.background = 'linear-gradient(135deg, var(--green), #1A6B40)';
+    btn.disabled = true;
+  }
+
+  // Animate stats on scroll
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.stat-num').forEach(el => {
+          const target = parseInt(el.textContent);
+          let count = 0;
+          const step = Math.ceil(target / 40);
+          const interval = setInterval(() => {
+            count = Math.min(count + step, target);
+            el.innerHTML = count + '<span>+</span>';
+            if (count >= target) clearInterval(interval);
+          }, 30);
+        });
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statsObserver.observe(heroStats);
+</script>
+</body>
+</html>
