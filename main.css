@@ -442,22 +442,4 @@
     width: 0%; transition: width 0.1s;
   }
 
-  .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 5%;
-}
-
-.logo {
-  /* Set a specific height; the width will adjust automatically */
-  height: 50px; 
-  width: auto;
-  display: block;
-}
-
-/* Optional: Add a hover effect */
-.logo:hover {
-  opacity: 0.8;
-  transition: 0.3s;
-}
+  
