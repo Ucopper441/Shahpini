@@ -440,5 +440,4 @@
     position: fixed; top: 70px; left: 0; height: 3px; z-index: 99;
     background: linear-gradient(90deg, var(--purple), var(--green));
     width: 0%; transition: width 0.1s;
-  }. i m g - c o v e r   {   w i d t h :   1 0 0 % ;   h e i g h t :   1 0 0 % ;   o b j e c t - f i t :   c o v e r ;   o b j e c t - p o s i t i o n :   c e n t e r ;   }  
- 
+  }
